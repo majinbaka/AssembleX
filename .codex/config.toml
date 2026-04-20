@@ -1,0 +1,29 @@
+# Repo-local Codex defaults for the Godot project.
+# Architectural context and folder placement rules live in `.codex/AGENTS.md`
+# and are derived from `setting.md`.
+model = "gpt-5.4"
+model_reasoning_effort = "high"
+personality = "pragmatic"
+approval_policy = "on-request"
+sandbox_mode = "workspace-write"
+
+[projects."/home/anhnv/Code/assemble-x"]
+trust_level = "trusted"
+
+[profiles.default]
+model = "gpt-5.4"
+model_reasoning_effort = "high"
+approval_policy = "on-request"
+sandbox_mode = "workspace-write"
+
+[profiles.review]
+model = "gpt-5.4"
+model_reasoning_effort = "high"
+approval_policy = "on-request"
+sandbox_mode = "read-only"
+
+[profiles.quick]
+model = "gpt-5.4-mini"
+model_reasoning_effort = "medium"
+approval_policy = "on-request"
+sandbox_mode = "workspace-write"
