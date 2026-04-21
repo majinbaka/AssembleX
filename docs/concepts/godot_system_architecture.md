@@ -1,5 +1,12 @@
 # AssembleX Godot System Architecture
 
+> **Document policy (2026-04 update):** Đây là tài liệu gốc để mở rộng dài hạn.
+>
+> - Không rút gọn/xóa nội dung lớn nếu chưa có quyết định design rõ ràng.
+> - Mọi cập nhật mới nên theo kiểu **bổ sung versioned addendum** (MVP/Phase 2/Phase 3).
+> - Nội dung MVP chỉ là lớp con của tài liệu này, không thay thế toàn bộ tầm nhìn dài hạn.
+
+
 ## 1. Muc tieu tai lieu
 
 Tai lieu nay chot kien truc he thong Godot cho AssembleX MVP de:
@@ -719,3 +726,44 @@ Thu tu nay bam sat backlog trong `concept.md` nhung bo sung dependency code thuc
 5. code replay test dau tien cho `combat_runner`
 
 Vi den muc nay design docs da du de chuyen sang implementation vertical slice.
+
+---
+
+## 14. Addendum 2026-04 (van hanh codebase khi scale)
+
+### 14.1. Quy tac ownership theo feature
+
+Moi folder feature can co owner ro:
+
+- 1 owner gameplay
+- 1 owner UI/presentation
+- 1 reviewer du phong
+
+Muc tieu la tranh vung code "vo chu" khi du an mo rong.
+
+### 14.2. CI check toi thieu nen co
+
+- schema validation (`parts/enemies/stages/economy`)
+- deterministic replay smoke test
+- save/load compatibility smoke test
+- lint nhanh cho GDScript (neu pipeline cho phep)
+
+### 14.3. Quy tac tich hop scene
+
+Khi them scene moi:
+
+1. scene chi duoc goi service qua interface da khai bao
+2. khong truy cap truc tiep save manager tu scene con
+3. event UI -> presenter -> service, tranh scene tu tinh toan business
+
+### 14.4. Technical backlog can co template chung
+
+Moi muc backlog ky thuat nen ghi:
+
+- van de hien tai
+- anh huong den nguoi choi
+- rui ro neu tri hoan
+- effort uoc tinh
+- tieu chi done ro rang
+
+Template dong nhat giup uu tien cong viec ky thuat minh bach hon.
