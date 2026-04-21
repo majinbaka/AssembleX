@@ -1067,3 +1067,154 @@ Sau tài liệu này, nên viết tiếp đúng thứ tự:
 Nếu làm production thật, tài liệu quan trọng nhất kế tiếp là:
 
 > `combat_spec.md` với state flow, event order, data schema và pseudo code đủ để code trực tiếp
+
+## 32. Concept Audit Fixes For Production Readiness
+
+Mục này bổ sung các điểm `cụ thể + thực tế` để team dùng ngay khi triển khai, giảm tình trạng tài liệu đúng ý tưởng nhưng khó đi vào việc.
+
+### 32.1. "Definition of Done" cho từng trụ cột
+
+Một build/combat iteration chỉ được coi là xong khi đạt đủ các điều kiện:
+
+#### Build clarity
+
+- Garage hiển thị rõ `stat trước/sau` khi đổi part
+- Có cảnh báo đỏ nếu build thiếu slot hoặc sai slot
+- Preview phải hiện được `1 threat chính` và `1 counter gợi ý` cho stage kế tiếp
+
+#### Combat readability
+
+- Mỗi trận đều có `battle timeline` và `post-battle breakdown`
+- Khi thua, hệ thống trả về tối thiểu `1 failure reason`
+- Người chơi có thể rematch trong `<= 2 click`
+
+#### Progression pacing
+
+- Sau `3 trận đầu`, người chơi phải đủ tài nguyên để nâng `ít nhất 1 part`
+- Sau boss zone 1, người chơi có ít nhất `1 lựa chọn counter mới` (drop/craft/unlock)
+- Không có stage nào bắt buộc farm lặp lại quá `3 lần` để đi tiếp
+
+### 32.2. Combat clarity checklist bắt buộc cho mỗi build
+
+Trước khi merge part/skill mới, designer phải check:
+
+1. Skill mới có `telegraph text` ngắn trong log không?
+2. Có thể chỉ ra counter trong `<= 1 câu` không?
+3. Có tạo tình huống "không thể phản ứng" trong `10s đầu` không?
+4. Có làm vỡ hard cap ở mục `26.2` không?
+5. Có ít nhất `1 enemy` trong campaign dùng được part đó để dạy bài học build không?
+
+Nếu câu 2 hoặc 3 fail, part chưa được đưa vào roster chính.
+
+### 32.3. Economy guardrail thực dụng
+
+Để tránh mất fun do tuning lệch, thêm 3 ngưỡng cảnh báo:
+
+- `Red flag A`: thua liên tục 4 trận mà không đủ tài nguyên nâng/craft 1 lựa chọn hợp lý
+- `Red flag B`: clear zone nhưng không thay đổi build lần nào vì không có động lực
+- `Red flag C`: phần thưởng boss không tạo được bước nhảy build rõ rệt
+
+Khi gặp red flag, ưu tiên sửa theo thứ tự:
+
+1. tăng `first_clear scrap`
+2. giảm cost `craft_common_b` hoặc `upgrade level 2-3`
+3. chỉnh encounter tuning
+
+Không sửa bằng cách tăng ATK/HP thô trên diện rộng.
+
+## 33. Practical Content Plan For Launch
+
+### 33.1. Enemy teaching map (12 stage launch)
+
+Mỗi stage chính phải dạy đúng `1 bài`, tránh dồn quá nhiều cơ chế:
+
+- `rust_yard_01-02`: làm quen nhịp đánh + hit/miss
+- `rust_yard_03-04`: burn pressure và nhu cầu module counter
+- `rust_yard_05`: bài học shield/def break cơ bản
+- `rust_yard_06`: boss tổng hợp zone 1
+- `neon_arena_01-02`: burst tempo và năng lượng
+- `neon_arena_03-04`: evasion/accuracy check
+- `neon_arena_05`: sustained duel và resource management
+- `neon_arena_06`: boss kiểm tra năng lực đọc preview + tái lắp build
+
+Nguyên tắc triển khai: nếu một stage dạy quá 1 bài và tỷ lệ thua tăng đột ngột, tách stage hoặc giảm 1 nguồn áp lực.
+
+### 33.2. Build archetype tối thiểu phải "playable"
+
+Ngoài việc "tồn tại", 3 archetype phải có khả năng clear campaign launch:
+
+1. `Burn Tempo`
+2. `Burst Crit`
+3. `Shield Sustain`
+
+Tiêu chí playable:
+
+- clear được regular stage cùng cấp mà không cần perfect RNG
+- có route nâng cấp rõ ràng level `1 -> 3 -> 5`
+- có ít nhất `1 counter` và `1 mirror weakness` để tránh auto-win
+
+### 33.3. Content authoring checklist
+
+Mỗi part/enemy/stage mới cần đủ bộ metadata:
+
+- `design_lesson`
+- `failure_hint_focus`
+- `preview.threat_tags`
+- `preview.counter_tags`
+- `economy reward profile`
+
+Thiếu metadata thì không đưa vào build release, vì sẽ phá vòng lặp "thua -> hiểu lý do -> chỉnh build".
+
+## 34. Live Playtest Protocol (MVP Internal)
+
+### 34.1. 3 chỉ số theo dõi bắt buộc
+
+- `Retry Rate / Stage`: stage nào bị retry quá cao
+- `Build Change Rate`: người chơi có thực sự đổi part sau khi thua không
+- `Time To First Meaningful Upgrade`: mất bao lâu để nâng cấp có tác động rõ
+
+### 34.2. Ngưỡng đánh giá đề xuất
+
+- Retry rate hợp lý: `1.3 - 2.2` mỗi stage khó
+- Build change rate tối thiểu: `>= 45%` sau các trận thua
+- Time to first meaningful upgrade: `< 8 phút`
+
+Nếu build change rate thấp nhưng retry cao, vấn đề thường nằm ở preview/hint chứ không phải chỉ số damage.
+
+### 34.3. Quy trình fix mỗi vòng playtest
+
+1. Khóa seed cho 5 trận mẫu để so sánh trước/sau
+2. Sửa đúng `1 nhóm` (combat hoặc economy hoặc enemy preview)
+3. Chạy lại cùng route 20 phút đầu
+4. Ghi rõ lý do thay đổi vào changelog design
+
+Không gộp nhiều thay đổi lớn trong 1 vòng vì khó truy nguyên nguyên nhân.
+
+## 35. UX Rules To Reduce Frustration
+
+### 35.1. Sau mỗi trận thua phải có "next step" rõ
+
+UI result cần hiển thị tối thiểu:
+
+- lý do thua chính
+- 1 gợi ý thay part
+- 1 gợi ý nâng part
+- nút rematch nhanh
+
+### 35.2. Cảnh báo sớm trong garage
+
+Trước khi vào stage, garage nên cảnh báo:
+
+- `ACC thấp` so với enemy EVA
+- `thiếu counter burn/shield/reflect` nếu enemy threat tag có
+- `energy tempo thấp` nếu skill cost quá cao so với regen
+
+Mục tiêu: giảm thua "mù", tăng thua "học được".
+
+### 35.3. Principle cuối cùng cho mọi quyết định
+
+Nếu có nhiều phương án, chọn phương án giúp người chơi trả lời được 3 câu hỏi sau nhanh nhất:
+
+1. Tôi vừa thua vì gì?
+2. Tôi nên đổi gì ngay bây giờ?
+3. Tôi có đủ tài nguyên để thử lại không?
