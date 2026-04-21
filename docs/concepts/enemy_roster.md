@@ -1,5 +1,12 @@
 # AssembleX Enemy Roster
 
+> **Document policy (2026-04 update):** Đây là tài liệu gốc để mở rộng dài hạn.
+>
+> - Không rút gọn/xóa nội dung lớn nếu chưa có quyết định design rõ ràng.
+> - Mọi cập nhật mới nên theo kiểu **bổ sung versioned addendum** (MVP/Phase 2/Phase 3).
+> - Nội dung MVP chỉ là lớp con của tài liệu này, không thay thế toàn bộ tầm nhìn dài hạn.
+
+
 ## 1. Muc tieu tai lieu
 
 Tai lieu nay chot contract cho `enemy roster` cua AssembleX MVP de:
@@ -473,3 +480,39 @@ Nhu vay da du de:
 - code `enemy compiler`
 - code validator `stage encounter`
 - lap roster vertical slice va campaign launch ban dau
+
+---
+
+## 13. Addendum 2026-04 (authoring roster thuc te)
+
+### 13.1. Mau phan bo encounter theo cam xuc nguoi choi
+
+Trong moi zone 6 stage:
+
+- stage `1-2`: day co che co ban, do kho vua
+- stage `3-4`: bat dau ep nguoi choi doi build
+- stage `5`: mini-kiem-tra counter
+- stage `6`: boss tong hop bai hoc cua zone
+
+### 13.2. Enemy readability checklist cho animator/VFX
+
+Moi enemy can co:
+
+- 1 dau hieu ro truoc skill nguy hiem (wind-up)
+- 1 mau hieu ung uu tien theo threat chinh (vi du Burn = tone nong)
+- 1 icon status de thay ngay effect dang tac dong
+
+Khong dat readability vao animation dep hon thong tin.
+
+### 13.3. Chinh sach buff/nerf roster sau playtest
+
+- `regular`: uu tien tinh lai reward va preview truoc khi buff so
+- `elite`: cho phep buff nhe `hp/def` neu bi clear qua de
+- `boss`: neu bi "stat check", phai sua mechanic telegraph truoc khi tang chi so
+
+### 13.4. Bang theo doi suc khoe roster moi sprint
+
+- ti le clear first-attempt theo tung stage
+- 3 ly do thua pho bien nhat theo stage
+- ti le doi build truoc va sau stage kho
+- so luong part duoc dung (de phat hien part bi that nghiep)

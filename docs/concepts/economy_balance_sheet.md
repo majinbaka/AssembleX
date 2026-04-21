@@ -1,5 +1,12 @@
 # AssembleX Economy Balance Sheet
 
+> **Document policy (2026-04 update):** Đây là tài liệu gốc để mở rộng dài hạn.
+>
+> - Không rút gọn/xóa nội dung lớn nếu chưa có quyết định design rõ ràng.
+> - Mọi cập nhật mới nên theo kiểu **bổ sung versioned addendum** (MVP/Phase 2/Phase 3).
+> - Nội dung MVP chỉ là lớp con của tài liệu này, không thay thế toàn bộ tầm nhìn dài hạn.
+
+
 ## 1. Muc tieu tai lieu
 
 Tai lieu nay chot `economy sheet` cho MVP de:
@@ -446,3 +453,38 @@ Nhu vay da du de:
 - code `upgrade_system`
 - code `craft_system`
 - lap vertical slice tu garage -> battle -> reward -> nang part -> rematch
+
+---
+
+## 12. Addendum 2026-04 (van hanh economy an toan)
+
+### 12.1. Guardrail de tranh grind met moi
+
+- khong stage thuong nao yeu cau farm lap > `5 tran` de qua neu choi dung counter
+- neu nguoi choi thua 3 lan lien tiep, he thong nen goi y hanh dong chi phi thap (upgrade moc nho / craft common)
+
+### 12.2. Cua so can bang reward moi patch
+
+Khi buff/nerf reward, gioi han thay doi moi patch:
+
+- `coins`: toi da `+-15%`
+- `scrap`: toi da `+-20%`
+- `core_shard drop`: toi da `+-3 diem %`
+
+Thay doi lon hon phai co playtest rieng.
+
+### 12.3. Bao tri gia tri cua defeat reward
+
+Defeat reward khong duoc qua thap de gay nan, nhung cung khong duoc cao den muc farm-thua.
+
+Nguong khuyen nghi:
+
+- defeat reward ~ `20-35%` gia tri repeat clear cung stage
+
+### 12.4. Canh bao mat can bang economy
+
+Neu gap 1 trong cac dau hieu sau, uu tien review economy truoc combat:
+
+- nguoi choi khong du tai nguyen craft counter trong 20 phut dau
+- ty le bo choi sau 2-3 that bai lien tiep tang dot bien
+- build da dang giam manh vi nguoi choi chi du tai nguyen nang 1 huong

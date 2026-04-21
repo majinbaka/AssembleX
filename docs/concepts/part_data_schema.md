@@ -1,5 +1,12 @@
 # AssembleX Part Data Schema
 
+> **Document policy (2026-04 update):** Đây là tài liệu gốc để mở rộng dài hạn.
+>
+> - Không rút gọn/xóa nội dung lớn nếu chưa có quyết định design rõ ràng.
+> - Mọi cập nhật mới nên theo kiểu **bổ sung versioned addendum** (MVP/Phase 2/Phase 3).
+> - Nội dung MVP chỉ là lớp con của tài liệu này, không thay thế toàn bộ tầm nhìn dài hạn.
+
+
 ## 1. Muc tieu tai lieu
 
 Tai lieu nay chot schema cho `part_data` de:
@@ -1015,3 +1022,43 @@ Vi den muc nay contract part da du ro de:
 - team content dien data part
 - team code viet validator va stat compiler
 - team UI dung chung tooltip va filter
+
+---
+
+## 15. Addendum 2026-04 (quy trinh quan tri data part)
+
+### 15.1. Versioning rule
+
+Moi `part_data` bat buoc co:
+
+- `version` tang dan khi doi gameplay behavior
+- `balance_revision` (string, vi du `2026_04_a`) de truy vet patch
+
+Neu chi doi tooltip, khong can tang `version`, chi can doi `balance_revision`.
+
+### 15.2. Migration rule cho save data
+
+Khi part doi field quan trong:
+
+1. them mapping trong migration table
+2. giu tuong thich nguoc toi thieu 1 major cycle
+3. log canh bao neu save cu dung part khong con ton tai
+
+### 15.3. Schema lint rules nen tu dong hoa
+
+- khong cho trung `id`
+- khong cho `slot` sai enum
+- khong cho `effect_upgrade_points` vuot `max_level`
+- khong cho part arm thieu `weapon_contribution`
+- khong cho part co unlock source tham chieu stage khong ton tai
+
+### 15.4. Metadata cho live-ops va analytics
+
+Nen bo sung metadata khong anh huong combat:
+
+- `design_owner`
+- `introduced_in_patch`
+- `retire_candidate` (bool)
+- `telemetry_tags`
+
+Muc nay giup theo doi part nao dang "chet" trong he sinh thai build.

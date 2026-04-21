@@ -1,5 +1,12 @@
 # AssembleX Combat Spec
 
+> **Document policy (2026-04 update):** Đây là tài liệu gốc để mở rộng dài hạn.
+>
+> - Không rút gọn/xóa nội dung lớn nếu chưa có quyết định design rõ ràng.
+> - Mọi cập nhật mới nên theo kiểu **bổ sung versioned addendum** (MVP/Phase 2/Phase 3).
+> - Nội dung MVP chỉ là lớp con của tài liệu này, không thay thế toàn bộ tầm nhìn dài hạn.
+
+
 ## 1. Muc tieu tai lieu
 
 Tai lieu nay chot `combat loop` cho MVP cua AssembleX o muc do co the code truc tiep.
@@ -1149,3 +1156,40 @@ Sau `combat_spec.md`, nen viet tiep:
 4. `godot_system_architecture.md`
 
 Vi `combat_spec.md` da chot contract runtime, cac tai lieu sau phai phu hop voi contract nay, khong duoc dinh nghia effect/skill/phu kien trai nhau.
+
+---
+
+## 18. Addendum 2026-04 (chi tiet thuc thi combat runner)
+
+### 18.1. Kien truc class runtime de de debug
+
+De xuat toi thieu cac class/value-object sau:
+
+- `BattleConfig` (tick_rate, timeout, clamp)
+- `BattleState` (tick_index, rng_state, units, event_log)
+- `UnitRuntimeState` (hp, energy, timers, effects)
+- `BattleEvent` (type, tick, actor, target, payload)
+- `BattleResult` (winner, end_reason, stats, hints)
+
+Tat ca object tren nen serializable de replay va regression test.
+
+### 18.2. Quy tac version combat
+
+Them `combat_version` vao ket qua tran va replay file.
+
+- Neu co thay doi thu tu resolve hoac cong thuc damage, phai tang `combat_version`.
+- Replay khac version khong duoc doc chung parser cu ma khong canh bao.
+
+### 18.3. Regression suite khuyen nghi truoc moi balance patch
+
+- `50 seed x 10 matchups` co dinh (tong 500 tran)
+- doi chieu: winner, end_reason, total_damage, event_count
+- nguong canh bao: lech > `5%` o bat ky chi so nao thi buoc review
+
+### 18.4. KPI doc duoc tran dau tren HUD
+
+Do 3 chi so nay trong user test:
+
+- `nguoi choi tra loi dung ly do thua` >= `70%`
+- `thoi gian doc thong tin sau tran` <= `20 giay`
+- `skip_rate cua result screen` <= `40%` (neu qua cao, thong tin chua huu ich)

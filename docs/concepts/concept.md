@@ -1,5 +1,12 @@
 # AssembleX
 
+> **Document policy (2026-04 update):** Đây là tài liệu gốc để mở rộng dài hạn.
+>
+> - Không rút gọn/xóa nội dung lớn nếu chưa có quyết định design rõ ràng.
+> - Mọi cập nhật mới nên theo kiểu **bổ sung versioned addendum** (MVP/Phase 2/Phase 3).
+> - Nội dung MVP chỉ là lớp con của tài liệu này, không thay thế toàn bộ tầm nhìn dài hạn.
+
+
 ## 1. Product Definition
 
 ### 1.1. One-line pitch
@@ -1218,3 +1225,45 @@ Nếu có nhiều phương án, chọn phương án giúp người chơi trả l
 1. Tôi vừa thua vì gì?
 2. Tôi nên đổi gì ngay bây giờ?
 3. Tôi có đủ tài nguyên để thử lại không?
+
+---
+
+## 16. Addendum 2026-04 (van hanh thuc te cho production)
+
+### 16.1. Muc tieu do luong trong 6 tuan dau soft-launch noi bo
+
+- `D1 retention test group`: muc tieu >= `30%` voi nhom test noi bo co onboarding day du.
+- `battle_rematch_rate` sau that bai: muc tieu >= `45%` (neu thap hon, ly do thua chua du ro).
+- `build_change_after_loss`: muc tieu >= `60%` (nguoi choi co hanh dong dieu chinh build, khong bo game).
+- `time_to_first_counter_build`: trong `20-30 phut` dau phai tao duoc it nhat 1 build counter co y nghia.
+
+### 16.2. Goi y doi tuong playtest
+
+Can tach 3 nhom playtest khi can bang game:
+
+1. `builder-heavy`: nguoi choi thich toi uu he thong
+2. `midcore casual`: nguoi choi doc tooltip nhung khong min-max sau
+3. `fresh eyes`: chua choi game cung the loai
+
+Moi nhom toi thieu `10-15` nguoi cho mot vong can bang nho de tranh ket luan lech.
+
+### 16.3. Definition of Done cho moi lan them part moi
+
+Mot part moi duoc xem la "san sang vao build" khi dat du cac dieu kien:
+
+- co `vai tro chien thuat` ro rang (khong chi la stat stick)
+- co it nhat `1 matchup manh` va `1 matchup yeu`
+- co tooltip chi ra dung diem manh/yeu
+- qua replay test khong pha deterministic
+- khong lam vo pacing economy cua zone hien tai
+
+### 16.4. Design debt can ghi no ro
+
+Neu bo sung tam thoi mot quy tac can bang mang tinh workaround, phai ghi vao "design debt" voi:
+
+- ly do them workaround
+- dieu kien de go workaround
+- ai la owner chinh
+- moc thoi gian xem lai
+
+Muc nay giup tranh viec workaround bien thanh "luat ngam" ve sau.
